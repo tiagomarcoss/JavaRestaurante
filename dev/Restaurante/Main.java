@@ -7,17 +7,18 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Cardapio cardapio = new Cardapio();
         Gerente gerente = new Gerente(cardapio);
+        Garcom garcom = new Garcom(gerente.getClientes(), cardapio);
 
         System.out.println("Você é:\n1 - Gerente\n2 - Garçom\n3 - Cliente");
         int opcao = sc.nextInt();
-        sc.nextLine(); 
+        sc.nextLine();
 
         switch (opcao) {
             case 1:
                 menuGerente(gerente, sc);
                 break;
             case 2:
-                System.out.println("Garçom ainda não implementado.");
+                menuGarcom(garcom, sc);
                 break;
             case 3:
                 System.out.println("Cliente ainda não implementado.");
@@ -100,6 +101,38 @@ public class Main {
                     break;
                 case 9:
                     System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+            }
+        }
+    }
+
+    public static void menuGarcom(Garcom garcom, Scanner sc) {
+        int opcao = -1;
+
+        while (opcao != 4) {
+            System.out.println("\nMenu do Garçom:");
+            System.out.println("1 - Registrar pedido");
+            System.out.println("2 - Alterar pedido");
+            System.out.println("3 - Remover pedido");
+            System.out.println("4 - Voltar");
+
+            opcao = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcao) {
+                case 1:
+                    garcom.registrarPedido(sc);
+                    break;
+                case 2:
+                    garcom.alterarPedido(sc);
+                    break;
+                case 3:
+                    garcom.removerPedido(sc);
+                    break;
+                case 4:
+                    System.out.println("Voltando ao menu principal...");
                     break;
                 default:
                     System.out.println("Opção inválida.");
