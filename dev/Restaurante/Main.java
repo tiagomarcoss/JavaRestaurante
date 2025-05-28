@@ -9,22 +9,35 @@ public class Main {
         Gerente gerente = new Gerente(cardapio);
         Garcom garcom = new Garcom(gerente.getClientes(), cardapio);
 
-        System.out.println("Você é:\n1 - Gerente\n2 - Garçom\n3 - Cliente");
-        int opcao = sc.nextInt();
-        sc.nextLine();
+        int opcao = -1;
 
-        switch (opcao) {
-            case 1:
-                menuGerente(gerente, sc);
-                break;
-            case 2:
-                menuGarcom(garcom, sc);
-                break;
-            case 3:
-                System.out.println("Cliente ainda não implementado.");
-                break;
-            default:
-                System.out.println("Opção inválida.");
+        while (opcao != 0) {
+            System.out.println("\nVocê é:");
+            System.out.println("1 - Gerente");
+            System.out.println("2 - Garçom");
+            System.out.println("3 - Cliente");
+            System.out.println("0 - Sair");
+            System.out.print("Escolha: ");
+
+            opcao = sc.nextInt();
+            sc.nextLine(); // limpar buffer
+
+            switch (opcao) {
+                case 1:
+                    menuGerente(gerente, sc);
+                    break;
+                case 2:
+                    menuGarcom(garcom, sc);
+                    break;
+                case 3:
+                    System.out.println("Cliente ainda não implementado.");
+                    break;
+                case 0:
+                    System.out.println("Encerrando o sistema...");
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+            }
         }
 
         sc.close();
@@ -43,7 +56,7 @@ public class Main {
             System.out.println("6 - Ver clientes");
             System.out.println("7 - Editar cliente");
             System.out.println("8 - Remover cliente");
-            System.out.println("9 - Sair");
+            System.out.println("9 - Voltar");
 
             opcao = sc.nextInt();
             sc.nextLine(); // limpar buffer
@@ -100,7 +113,7 @@ public class Main {
                     gerente.removerCliente(idxRemoverCliente);
                     break;
                 case 9:
-                    System.out.println("Saindo...");
+                    System.out.println("Voltando ao menu principal...");
                     break;
                 default:
                     System.out.println("Opção inválida.");
