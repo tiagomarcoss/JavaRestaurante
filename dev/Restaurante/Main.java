@@ -34,7 +34,7 @@ public class Main {
                     menuGarcom(garcom, sc);
                     break;
                 case 3:
-                    menuCliente(cardapio, pedidos, sc);
+                    menuCliente(gerente.getClientes(), sc);
                     break;
                 case 0:
                     System.out.println("Encerrando o sistema...");
@@ -156,12 +156,28 @@ public class Main {
             }
         }
     }
-    public static void menuCliente(Cardapio cardapio, List<Pedido> pedidos, Scanner sc) {
-        System.out.print("\nInforme seu nome: ");
-        String nomeCliente = sc.nextLine();
+    public static void menuCliente(List<Cliente> clientes, Scanner sc) {
+        if (clientes.isEmpty()) {
+            System.out.println("Nenhum cliente cadastrado. Peça para o gerente cadastrar clientes primeiro.");
+            return;
+        }
 
-        Cliente cliente = new Cliente(nomeCliente, cardapio, pedidos);
-        cliente.iniciarAtendimento();
+        System.out.println("Escolha seu nome na lista de clientes:");
+
+        for (int i = 0; i < clientes.size(); i++) {
+            System.out.println(i + " - " + clientes.get(i).getNome());
+        }
+        System.out.print("Digite o índice do seu nome: ");
+        int idx = sc.nextInt();
+        sc.nextLine();
+
+        if (idx < 0 || idx >= clientes.size()) {
+            System.out.println("Índice inválido. Retornando ao menu principal.");
+            return;
+        }
+
+        Cliente clienteSelecionado = clientes.get(idx);
+        clienteSelecionado.iniciarAtendimento();
     }
 
 }
