@@ -240,6 +240,13 @@ public class Main {
             opcaoFiltro = sc.nextInt();
             sc.nextLine();
 
+            try {
+                E_Consulta y = new E_Consulta(opcaoFiltro);
+            }
+            catch (RuntimeException exception) {
+                System.out.println(exception.getMessage());
+            }
+
             ArrayList<Pedido> pedidos = gerente.getPedidos();
 
             switch (opcaoFiltro) {
@@ -309,9 +316,6 @@ public class Main {
                 case 0:
                     System.out.println("Voltando...");
                     break;
-
-                default:
-                    System.out.println("Opção inválida.");
             }
         }
     }
