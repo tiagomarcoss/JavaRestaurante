@@ -1,5 +1,7 @@
 package dev.Restaurante;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -8,6 +10,8 @@ public class Main {
         Cardapio cardapio = new Cardapio();
         Gerente gerente = new Gerente(cardapio);
         Garcom garcom = new Garcom(gerente.getClientes(), cardapio);
+        List<Pedido> pedidos = new ArrayList<>();
+
 
         int opcao = -1;
 
@@ -30,7 +34,7 @@ public class Main {
                     menuGarcom(garcom, sc);
                     break;
                 case 3:
-                    System.out.println("Cliente ainda não implementado.");
+                    menuCliente(cardapio, pedidos, sc);
                     break;
                 case 0:
                     System.out.println("Encerrando o sistema...");
@@ -152,4 +156,12 @@ public class Main {
             }
         }
     }
+    public static void menuCliente(Cardapio cardapio, List<Pedido> pedidos, Scanner sc) {
+        System.out.print("\nInforme seu nome: ");
+        String nomeCliente = sc.nextLine();
+
+        Cliente cliente = new Cliente(nomeCliente, cardapio, pedidos);
+        cliente.iniciarAtendimento();
+    }
+
 }

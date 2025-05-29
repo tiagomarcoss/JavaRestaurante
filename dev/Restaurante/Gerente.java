@@ -47,7 +47,7 @@ public class Gerente {
 
     // Clientes
     public void cadastrarCliente(String nome) {
-        Cliente cliente = new Cliente(nome);
+        Cliente cliente = new Cliente(nome, cardapio, new ArrayList<Pedido>());
         clientes.add(cliente);
         System.out.println("Cliente cadastrado.");
     }
