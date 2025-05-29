@@ -9,3 +9,12 @@ Dentre tudo que foi lecionado ao longo do período na discilplina de Programaç�
 
 ## Abordagem
 Para a realização desse projeto foi necessária a criação de diversas classes distintas para lidar com cada especificação que o sistema requer. A classe mais simples, que é a classe Prato, serve como base para Pedido e Cardápio até chegar em classes mais complexas como a classe Cliente, que desencadeiam em classes capazes de visualizar e até mesmo editar dados. Tudo isso sendo por fim executável pela classe Main.
+
+## Passo a passo
+Para poder executar o programa é necessário uma plataforma capaz de executar códigos em Java, como o Intellij ou o Visual Studio Code. Em seguida o usuário deve clonar o repositório, abrir o programa Main.java e executá-lo. No terminal o usuário irá se deparar com um leque de opções, cada uma representa o "cargo" que o usuário irá exercer enquanto utiliza o programa. O cliente está limitado apenas a consultar o cardápio e o status de seu pedido, sendo o papel mais limitado. Seguindo a hierarquia temos o garçom, que é responsável por adicionar, remover e até mesmo alterar pedidos. Já o gerente, é o papel com mais opções, podendo adicionar, remover e editar cadastros dos clientes e pratos registrados, além de consultar os pedidos.
+
+## Para Compilar
+
+`javac dev/Restaurante/*.java`
+
+`java dev.Restaurante.Main`

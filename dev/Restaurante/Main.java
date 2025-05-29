@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Cardapio cardapio = new Cardapio();
@@ -13,7 +14,8 @@ public class Main {
         Garcom garcom = new GarcomRestaurante(gerente.getClientes(), cardapio, pedidos);
 
         int opcao = -1;
-        while (opcao == -1) {
+
+        while (opcao != 0) {
             System.out.println("\nVocê é:");
             System.out.println("1 - Gerente");
             System.out.println("2 - Garçom");
@@ -22,14 +24,14 @@ public class Main {
             System.out.print("Escolha: ");
 
             opcao = sc.nextInt();
-            sc.nextLine(); // limpar buffer
+            sc.nextLine();
 
-            try{
+            try {
                 E_Opcao x = new E_Opcao(opcao);
-            }
-            catch(RuntimeException exception){
+            } catch (RuntimeException exception) {
                 System.out.println(exception.getMessage());
                 opcao = -1;
+                continue;
             }
 
             switch (opcao) {
@@ -69,14 +71,14 @@ public class Main {
             System.out.println("11 - Voltar");
 
             opcao = sc.nextInt();
-            sc.nextLine(); // limpar buffer
+            sc.nextLine();
 
             try {
                 E_Gerente y = new E_Gerente(opcao);
-            }
-            catch (RuntimeException exception) {
+            } catch (RuntimeException exception) {
                 System.out.println(exception.getMessage());
                 opcao = -1;
+                continue;
             }
 
             switch (opcao) {
@@ -183,11 +185,10 @@ public class Main {
 
             try {
                 E_Garcom x = new E_Garcom(opcao);
-            }
-            catch (RuntimeException exception) {
+            } catch (RuntimeException exception) {
                 System.out.println(exception.getMessage());
                 opcao = -1;
-
+                continue;
             }
 
             switch (opcao) {
@@ -232,27 +233,28 @@ public class Main {
     }
 
     public static void menuConsultaPedidosComFiltros(Gerente gerente, Scanner sc) {
-        int opcaoFiltro = -1;
+        int opcao = -1;
 
-        while (opcaoFiltro != 0) {
+        while (opcao != 0) {
             System.out.println("\nConsultar pedidos com filtros:");
             System.out.println("1 - Por status");
             System.out.println("2 - Por cliente");
             System.out.println("0 - Voltar");
             System.out.print("Escolha uma opção: ");
-            opcaoFiltro = sc.nextInt();
+            opcao = sc.nextInt();
             sc.nextLine();
 
             try {
-                E_Consulta y = new E_Consulta(opcaoFiltro);
-            }
-            catch (RuntimeException exception) {
+                E_Consulta y = new E_Consulta(opcao);
+            } catch (RuntimeException exception) {
                 System.out.println(exception.getMessage());
+                opcao = -1;
+                continue;
             }
 
             ArrayList<Pedido> pedidos = gerente.getPedidos();
 
-            switch (opcaoFiltro) {
+            switch (opcao) {
                 case 1:
                     if (pedidos.isEmpty()) {
                         System.out.println("Não há pedidos registrados para consultar por status.");
