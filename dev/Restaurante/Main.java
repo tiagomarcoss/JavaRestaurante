@@ -13,8 +13,9 @@ public class Main {
         Garcom garcom = new GarcomRestaurante(gerente.getClientes(), cardapio, pedidos);
 
         int opcao = -1;
+        boolean opcaoValida = false;
 
-        while (opcao != 0) {
+        while (opcaoValida == false) {
             System.out.println("\nVocê é:");
             System.out.println("1 - Gerente");
             System.out.println("2 - Garçom");
@@ -25,21 +26,28 @@ public class Main {
             opcao = sc.nextInt();
             sc.nextLine(); // limpar buffer
 
-            switch (opcao) {
-                case 1:
-                    menuGerente(gerente, sc);
-                    break;
-                case 2:
-                    menuGarcom(garcom, sc);
-                    break;
-                case 3:
-                    menuCliente(gerente.getClientes(), sc);
-                    break;
-                case 0:
-                    System.out.println("Encerrando o sistema...");
-                    break;
-                default:
-                    System.out.println("Opção inválida.");
+            try{
+                E_Opcao x = new E_Opcao(opcao);
+            }
+            catch(RuntimeException exception){
+                System.out.println(exception.getMessage());
+            }
+
+            if(opcao == 1){
+                menuGerente(gerente, sc);
+                opcaoValida = true;
+            }
+            else if(opcao == 2){
+                menuGarcom(garcom, sc);
+                opcaoValida = true;
+            }
+            else if(opcao == 3){
+                menuCliente(gerente.getClientes(), sc);
+                opcaoValida = true;
+            }
+            else if(opcao == 0){
+                System.out.println("Encerrando o sistema...");
+                opcaoValida = true;
             }
         }
 
