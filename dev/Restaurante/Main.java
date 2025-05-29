@@ -13,9 +13,8 @@ public class Main {
         Garcom garcom = new GarcomRestaurante(gerente.getClientes(), cardapio, pedidos);
 
         int opcao = -1;
-        boolean opcaoValida = false;
 
-        while (opcaoValida == false) {
+        while (opcao = -1) {
             System.out.println("\nVocê é:");
             System.out.println("1 - Gerente");
             System.out.println("2 - Garçom");
@@ -33,21 +32,19 @@ public class Main {
                 System.out.println(exception.getMessage());
             }
 
-            if(opcao == 1){
-                menuGerente(gerente, sc);
-                opcaoValida = true;
-            }
-            else if(opcao == 2){
-                menuGarcom(garcom, sc);
-                opcaoValida = true;
-            }
-            else if(opcao == 3){
-                menuCliente(gerente.getClientes(), sc);
-                opcaoValida = true;
-            }
-            else if(opcao == 0){
-                System.out.println("Encerrando o sistema...");
-                opcaoValida = true;
+            switch (opcao) {
+                case 1:
+                    menuGerente(gerente, sc);
+                    break;
+                case 2:
+                    menuGarcom(garcom, sc);
+                    break;
+                case 3:
+                    menuCliente(gerente.getClientes(), sc);
+                    break;
+                case 0:
+                    System.out.println("Encerrando o sistema...");
+                    break;
             }
         }
 
@@ -73,6 +70,13 @@ public class Main {
 
             opcao = sc.nextInt();
             sc.nextLine(); // limpar buffer
+
+            try {
+                E_Gerente y = new E_Gerente(opcao);
+            }
+            catch (RuntimeException exception) {
+                System.out.println(exception.getMessage());
+            }
 
             switch (opcao) {
                 case 1:
@@ -159,8 +163,6 @@ public class Main {
                 case 11:
                     System.out.println("Voltando ao menu principal...");
                     break;
-                default:
-                    System.out.println("Opção inválida.");
             }
         }
     }
