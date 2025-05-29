@@ -1,7 +1,6 @@
 package dev.Restaurante;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public abstract class Garcom implements IGarcom {
     protected ArrayList<Pedido> pedidos;

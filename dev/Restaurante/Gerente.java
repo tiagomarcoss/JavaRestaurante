@@ -14,4 +14,12 @@ public abstract class Gerente implements IGerente {
     }
 
     public abstract ArrayList<Cliente> getClientes();
+
+    public Cardapio getCardapio() {
+        return cardapio;
+    }
+
+    public ArrayList<Pedido> getPedidos() {
+        return pedidos;
+    }
 }

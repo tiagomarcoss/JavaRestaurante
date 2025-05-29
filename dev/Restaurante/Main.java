@@ -12,7 +12,6 @@ public class Main {
         Gerente gerente = new GerenteRestaurante(cardapio, pedidos);
         Garcom garcom = new GarcomRestaurante(gerente.getClientes(), cardapio, pedidos);
 
-
         int opcao = -1;
 
         while (opcao != 0) {
@@ -50,7 +49,7 @@ public class Main {
     public static void menuGerente(Gerente gerente, Scanner sc) {
         int opcao = -1;
 
-        while (opcao != 9) {
+        while (opcao != 11) {
             System.out.println("\nMenu do Gerente:");
             System.out.println("1 - Cadastrar prato");
             System.out.println("2 - Ver pratos");
@@ -60,7 +59,9 @@ public class Main {
             System.out.println("6 - Ver clientes");
             System.out.println("7 - Editar cliente");
             System.out.println("8 - Remover cliente");
-            System.out.println("9 - Voltar");
+            System.out.println("9 - Consultar pratos por categoria");
+            System.out.println("10 - Consultar pedidos com filtros");
+            System.out.println("11 - Voltar");
 
             opcao = sc.nextInt();
             sc.nextLine(); // limpar buffer
@@ -117,6 +118,37 @@ public class Main {
                     gerente.removerCliente(idxRemoverCliente);
                     break;
                 case 9:
+                    ArrayList<Prato> pratos = gerente.getCardapio().getPratos();
+                    if (pratos.isEmpty()) {
+                        System.out.println("Nenhum prato cadastrado.");
+                    } else {
+                        ArrayList<String> categorias = new ArrayList<>();
+                        for (Prato p : pratos) {
+                            if (!categorias.contains(p.getCategoria())) {
+                                categorias.add(p.getCategoria());
+                            }
+                        }
+
+                        System.out.println("Categorias disponíveis:");
+                        for (int i = 0; i < categorias.size(); i++) {
+                            System.out.println(i + " - " + categorias.get(i));
+                        }
+                        System.out.print("Escolha o índice da categoria: ");
+                        int idxCategoria = sc.nextInt();
+                        sc.nextLine();
+
+                        if (idxCategoria >= 0 && idxCategoria < categorias.size()) {
+                            String categoriaEscolhida = categorias.get(idxCategoria);
+                            gerente.listarPratosPorCategoria(categoriaEscolhida);
+                        } else {
+                            System.out.println("Índice inválido.");
+                        }
+                    }
+                    break;
+                case 10:
+                    menuConsultaPedidosComFiltros(gerente, sc);
+                    break;
+                case 11:
                     System.out.println("Voltando ao menu principal...");
                     break;
                 default:
@@ -156,6 +188,7 @@ public class Main {
             }
         }
     }
+
     public static void menuCliente(List<Cliente> clientes, Scanner sc) {
         if (clientes.isEmpty()) {
             System.out.println("Nenhum cliente cadastrado. Peça para o gerente cadastrar clientes primeiro.");
@@ -180,4 +213,91 @@ public class Main {
         clienteSelecionado.iniciarAtendimento();
     }
 
+    public static void menuConsultaPedidosComFiltros(Gerente gerente, Scanner sc) {
+        int opcaoFiltro = -1;
+
+        while (opcaoFiltro != 0) {
+            System.out.println("\nConsultar pedidos com filtros:");
+            System.out.println("1 - Por status");
+            System.out.println("2 - Por cliente");
+            System.out.println("0 - Voltar");
+            System.out.print("Escolha uma opção: ");
+            opcaoFiltro = sc.nextInt();
+            sc.nextLine();
+
+            ArrayList<Pedido> pedidos = gerente.getPedidos();
+
+            switch (opcaoFiltro) {
+                case 1:
+                    if (pedidos.isEmpty()) {
+                        System.out.println("Não há pedidos registrados para consultar por status.");
+                        break;
+                    }
+
+                    ArrayList<String> statusUnicos = new ArrayList<>();
+                    for (Pedido p : pedidos) {
+                        if (!statusUnicos.contains(p.getStatus())) {
+                            statusUnicos.add(p.getStatus());
+                        }
+                    }
+
+                    if (statusUnicos.isEmpty()) {
+                        System.out.println("Nenhum status registrado nos pedidos.");
+                        break;
+                    }
+
+                    System.out.println("Status disponíveis:");
+                    for (int i = 0; i < statusUnicos.size(); i++) {
+                        System.out.println(i + " - " + statusUnicos.get(i));
+                    }
+
+                    System.out.print("Escolha o índice do status: ");
+                    int idxStatus = sc.nextInt();
+                    sc.nextLine();
+
+                    if (idxStatus >= 0 && idxStatus < statusUnicos.size()) {
+                        String statusEscolhido = statusUnicos.get(idxStatus);
+                        gerente.listarPedidosPorStatus(statusEscolhido);
+                    } else {
+                        System.out.println("Índice inválido.");
+                    }
+                    break;
+
+                case 2:
+                    ArrayList<Cliente> clientes = gerente.getClientes();
+                    if (clientes.isEmpty()) {
+                        System.out.println("Nenhum cliente cadastrado.");
+                        break;
+                    }
+
+                    if (pedidos.isEmpty()) {
+                        System.out.println("Não há pedidos registrados para consultar por cliente.");
+                        break;
+                    }
+
+                    System.out.println("Clientes cadastrados:");
+                    for (int i = 0; i < clientes.size(); i++) {
+                        System.out.println(i + " - " + clientes.get(i).getNome());
+                    }
+                    System.out.print("Escolha o índice do cliente: ");
+                    int idxClienteFiltro = sc.nextInt();
+                    sc.nextLine();
+
+                    if (idxClienteFiltro >= 0 && idxClienteFiltro < clientes.size()) {
+                        String nomeClienteFiltro = clientes.get(idxClienteFiltro).getNome();
+                        gerente.listarPedidosPorCliente(nomeClienteFiltro);
+                    } else {
+                        System.out.println("Índice inválido.");
+                    }
+                    break;
+
+                case 0:
+                    System.out.println("Voltando...");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida.");
+            }
+        }
+    }
 }

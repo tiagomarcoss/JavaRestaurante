@@ -18,4 +18,11 @@ public interface IGerente {
     void editarCliente(int index, String novoNome);
 
     void removerCliente(int index);
+
+    // Filtros
+    void listarPratosPorCategoria(String categoria);
+
+    void listarPedidosPorStatus(String status);
+
+    void listarPedidosPorCliente(String nomeCliente);
 }

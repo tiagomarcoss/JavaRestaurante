@@ -85,4 +85,47 @@ public class GerenteRestaurante extends Gerente {
     public ArrayList<Cliente> getClientes() {
         return clientes;
     }
+
+    // Filtros
+    @Override
+    public void listarPratosPorCategoria(String categoria) {
+        boolean encontrado = false;
+        for (Prato prato : cardapio.getPratos()) {
+            if (prato.getCategoria().equalsIgnoreCase(categoria)) {
+                System.out.println(prato);
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("Nenhum prato encontrado para a categoria: " + categoria);
+        }
+    }
+
+    @Override
+    public void listarPedidosPorStatus(String status) {
+        boolean encontrado = false;
+        for (Pedido pedido : pedidos) {
+            if (pedido.getStatus().equalsIgnoreCase(status)) {
+                System.out.println(pedido);
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("Nenhum pedido encontrado com status: " + status);
+        }
+    }
+
+    @Override
+    public void listarPedidosPorCliente(String nomeCliente) {
+        boolean encontrado = false;
+        for (Pedido pedido : pedidos) {
+            if (pedido.getCliente().getNome().equalsIgnoreCase(nomeCliente)) {
+                System.out.println(pedido);
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("Nenhum pedido encontrado para o cliente: " + nomeCliente);
+        }
+    }
 }
