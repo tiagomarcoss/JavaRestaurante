@@ -180,6 +180,13 @@ public class Main {
             opcao = sc.nextInt();
             sc.nextLine();
 
+            try {
+                E_Garcom x = new E_Garcom(opcao);
+            }
+            catch (RuntimeException exception) {
+                System.out.println(exception.getMessage());
+            }
+
             switch (opcao) {
                 case 1:
                     garcom.registrarPedido(sc);
@@ -193,8 +200,6 @@ public class Main {
                 case 4:
                     System.out.println("Voltando ao menu principal...");
                     break;
-                default:
-                    System.out.println("Opção inválida.");
             }
         }
     }
