@@ -13,8 +13,7 @@ public class Main {
         Garcom garcom = new GarcomRestaurante(gerente.getClientes(), cardapio, pedidos);
 
         int opcao = -1;
-
-        while (opcao = -1) {
+        while (opcao == -1) {
             System.out.println("\nVocê é:");
             System.out.println("1 - Gerente");
             System.out.println("2 - Garçom");
@@ -30,6 +29,7 @@ public class Main {
             }
             catch(RuntimeException exception){
                 System.out.println(exception.getMessage());
+                opcao = -1;
             }
 
             switch (opcao) {
@@ -76,6 +76,7 @@ public class Main {
             }
             catch (RuntimeException exception) {
                 System.out.println(exception.getMessage());
+                opcao = -1;
             }
 
             switch (opcao) {
@@ -185,6 +186,8 @@ public class Main {
             }
             catch (RuntimeException exception) {
                 System.out.println(exception.getMessage());
+                opcao = -1;
+
             }
 
             switch (opcao) {
