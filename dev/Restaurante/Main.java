@@ -9,8 +9,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Cardapio cardapio = new Cardapio();
         ArrayList<Pedido> pedidos = new ArrayList<>();
-        Gerente gerente = new Gerente(cardapio, pedidos);
-        Garcom garcom = new Garcom(gerente.getClientes(), cardapio, pedidos);
+        Gerente gerente = new GerenteRestaurante(cardapio, pedidos);
+        Garcom garcom = new GarcomRestaurante(gerente.getClientes(), cardapio, pedidos);
 
 
         int opcao = -1;
