@@ -8,8 +8,8 @@ public class Garcom {
     private ArrayList<Cliente> clientes;
     private Cardapio cardapio;
 
-    public Garcom(ArrayList<Cliente> clientes, Cardapio cardapio) {
-        this.pedidos = new ArrayList<>();
+    public Garcom(ArrayList<Cliente> clientes, Cardapio cardapio, ArrayList<Pedido> pedidos) {
+        this.pedidos = pedidos;
         this.clientes = clientes;
         this.cardapio = cardapio;
     }

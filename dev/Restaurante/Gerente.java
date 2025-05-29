@@ -6,9 +6,12 @@ public class Gerente {
     private Cardapio cardapio;
     private ArrayList<Cliente> clientes;
 
-    public Gerente(Cardapio cardapio) {
+    private ArrayList<Pedido> pedidos;
+
+    public Gerente(Cardapio cardapio, ArrayList<Pedido> pedidos) {
         this.cardapio = cardapio;
         this.clientes = new ArrayList<>();
+        this.pedidos = pedidos;
     }
 
     // Pratos
@@ -47,7 +50,7 @@ public class Gerente {
 
     // Clientes
     public void cadastrarCliente(String nome) {
-        Cliente cliente = new Cliente(nome, cardapio, new ArrayList<Pedido>());
+        Cliente cliente = new Cliente(nome, cardapio, pedidos); // agora é a mesma lista!
         clientes.add(cliente);
         System.out.println("Cliente cadastrado.");
     }
