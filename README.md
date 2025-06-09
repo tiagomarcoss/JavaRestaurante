@@ -18,3 +18,12 @@ Para poder executar o programa é necessário uma plataforma capaz de executar c
 `javac dev/Restaurante/*.java`
 
 `java dev.Restaurante.Main`
+
+## Banco de dados (Modelo Conceitual)
+
+![modelo conceitual](https://github.com/user-attachments/assets/040e558b-5280-4cd5-95a0-e49fe7161a96)
+
+## Banco de dados (Modelo Lógico)
+
+![modelo logico](https://github.com/user-attachments/assets/73d4edbc-2e17-4f88-9326-01ca7af7c772)
+
