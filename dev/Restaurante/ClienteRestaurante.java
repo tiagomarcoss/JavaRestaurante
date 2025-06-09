@@ -53,16 +53,17 @@ public class ClienteRestaurante extends Cliente {
         }
 
         System.out.println("\n=== CARDÁPIO ===");
-        System.out.println("----------------------------------");
-        System.out.printf("%-25s | %-15s%n", "PRATO", "CATEGORIA");
-        System.out.println("----------------------------------");
+        System.out.println("-----------------------------------------------------------");
+        System.out.printf("%-25s | %-15s | %-8s%n", "PRATO", "CATEGORIA", "PREÇO");
+        System.out.println("-----------------------------------------------------------");
 
         for (Prato prato : pratos) {
-            System.out.printf("%-25s | %-15s%n",
+            System.out.printf("%-25s | %-15s | R$ %-6.2f%n",
                     prato.getNome(),
-                    prato.getCategoria());
+                    prato.getCategoria(),
+                    prato.getPreco());
         }
-        System.out.println("----------------------------------");
+        System.out.println("-----------------------------------------------------------");
     }
 
     @Override
@@ -99,11 +100,14 @@ public class ClienteRestaurante extends Cliente {
         System.out.println("Status: " + pedido.getStatus());
 
         System.out.println("\nItens:");
-        System.out.println("-----------------------------");
+        System.out.println("---------------------------------------------");
+        double total = 0.0;
         for (Prato prato : pedido.getPratos()) {
-            System.out.println("- " + prato.getNome() + " (" + prato.getCategoria() + ")");
+            System.out.printf("- %-25s | R$ %.2f%n", prato.getNome(), prato.getPreco());
+            total += prato.getPreco();
         }
-        System.out.println("-----------------------------");
+        System.out.println("---------------------------------------------");
+        System.out.printf("Total: R$ %.2f%n", total);
     }
 
     @Override
@@ -115,6 +119,7 @@ public class ClienteRestaurante extends Cliente {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     @Override
     public String toString() {
         return nome;

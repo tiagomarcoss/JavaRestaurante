@@ -45,12 +45,24 @@ public class Pedido {
         this.status = status;
     }
 
+    public double calcularTotal() {
+        double total = 0;
+        for (Prato p : pratos) {
+            total += p.getPreco();
+        }
+        return total;
+    }
+
     @Override
     public String toString() {
         String nomesPratos = "";
         for (Prato p : pratos) {
             nomesPratos += p.getNome() + ", ";
         }
-        return "Pedido #" + id + " | Cliente: " + cliente.getNome() + " | Pratos: " + nomesPratos + " | Status: " + status;
+        return "Pedido #" + id +
+                " | Cliente: " + cliente.getNome() +
+                " | Pratos: " + nomesPratos +
+                " | Status: " + status +
+                " | Total: R$" + String.format("%.2f", calcularTotal());
     }
 }

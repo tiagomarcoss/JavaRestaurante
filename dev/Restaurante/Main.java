@@ -87,7 +87,11 @@ public class Main {
                     String nomePrato = sc.nextLine();
                     System.out.print("Categoria: ");
                     String categoria = sc.nextLine();
-                    gerente.cadastrarPrato(nomePrato, categoria);
+                    System.out.print("Preço: ");
+                    String precoStr = sc.nextLine().replace(",", ".");
+                    double preco = Double.parseDouble(precoStr);
+
+                    gerente.cadastrarPrato(nomePrato, categoria, preco);
                     break;
                 case 2:
                     gerente.listarPratos();
@@ -101,7 +105,10 @@ public class Main {
                     String novoNome = sc.nextLine();
                     System.out.print("Nova categoria: ");
                     String novaCat = sc.nextLine();
-                    gerente.editarPrato(idxPrato, novoNome, novaCat);
+                    System.out.print("Novo preço: ");
+                    double novoPreco = sc.nextDouble();
+                    sc.nextLine();
+                    gerente.editarPrato(idxPrato, novoNome, novaCat, novoPreco);
                     break;
                 case 4:
                     gerente.listarPratos();

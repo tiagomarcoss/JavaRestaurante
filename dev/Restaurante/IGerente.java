@@ -2,11 +2,11 @@ package dev.Restaurante;
 
 public interface IGerente {
     // Pratos
-    void cadastrarPrato(String nome, String categoria);
+    void cadastrarPrato(String nome, String categoria, double preco);
 
     void listarPratos();
 
-    void editarPrato(int index, String novoNome, String novaCategoria);
+    void editarPrato(int indice, String novoNome, String novaCategoria, double novoPreco);
 
     void removerPrato(int index);
 

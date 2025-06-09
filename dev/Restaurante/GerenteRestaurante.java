@@ -10,10 +10,10 @@ public class GerenteRestaurante extends Gerente {
 
     // Pratos
     @Override
-    public void cadastrarPrato(String nome, String categoria) {
-        Prato prato = new Prato(nome, categoria);
-        cardapio.adicionarPrato(prato);
-        System.out.println("Prato cadastrado.");
+    public void cadastrarPrato(String nome, String categoria, double preco) {
+        Prato novoPrato = new Prato(nome, categoria, preco);
+        cardapio.adicionarPrato(novoPrato);
+        System.out.println("Prato cadastrado com sucesso.");
     }
 
     @Override
@@ -25,12 +25,14 @@ public class GerenteRestaurante extends Gerente {
     }
 
     @Override
-    public void editarPrato(int index, String novoNome, String novaCategoria) {
-        if (index >= 0 && index < cardapio.getPratos().size()) {
-            Prato prato = cardapio.getPratos().get(index);
+    public void editarPrato(int indice, String novoNome, String novaCategoria, double novoPreco) {
+        ArrayList<Prato> pratos = cardapio.getPratos();
+        if (indice >= 0 && indice < pratos.size()) {
+            Prato prato = pratos.get(indice);
             prato.setNome(novoNome);
             prato.setCategoria(novaCategoria);
-            System.out.println("Prato atualizado.");
+            prato.setPreco(novoPreco);
+            System.out.println("Prato editado com sucesso.");
         } else {
             System.out.println("Índice inválido.");
         }
