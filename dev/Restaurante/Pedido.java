@@ -1,28 +1,35 @@
 package dev.Restaurante;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Pedido {
     private static int contadorId = 1;
 
     private int id;
     private Cliente cliente;
-    private ArrayList<Prato> pratos;
+    private List<ItemPedido> itens;
     private String status;
 
     public Pedido(Cliente cliente) {
         this.id = contadorId++;
         this.cliente = cliente;
-        this.pratos = new ArrayList<>();
+        this.itens = new ArrayList<>();
         this.status = "Em preparação";
     }
 
-    public void adicionarPrato(Prato prato) {
-        pratos.add(prato);
+    public void adicionarItem(Prato prato, int quantidade) {
+        for (ItemPedido item : itens) {
+            if (item.getPrato().equals(prato)) {
+                item.setQuantidade(item.getQuantidade() + quantidade);
+                return;
+            }
+        }
+        itens.add(new ItemPedido(prato, quantidade));
     }
 
-    public void removerPrato(Prato prato) {
-        pratos.remove(prato);
+    public void removerItem(Prato prato) {
+        itens.removeIf(item -> item.getPrato().equals(prato));
     }
 
     public int getId() {
@@ -33,8 +40,8 @@ public class Pedido {
         return cliente;
     }
 
-    public ArrayList<Prato> getPratos() {
-        return pratos;
+    public List<ItemPedido> getItens() {
+        return itens;
     }
 
     public String getStatus() {
@@ -47,17 +54,18 @@ public class Pedido {
 
     public double calcularTotal() {
         double total = 0;
-        for (Prato p : pratos) {
-            total += p.getPreco();
+        for (ItemPedido item : itens) {
+            total += item.getSubtotal();
         }
         return total;
     }
 
     @Override
     public String toString() {
-        String nomesPratos = "";
-        for (Prato p : pratos) {
-            nomesPratos += p.getNome() + ", ";
+        StringBuilder nomesPratos = new StringBuilder();
+        for (ItemPedido item : itens) {
+            nomesPratos.append(item.getQuantidade()).append("x ")
+                    .append(item.getPrato().getNome()).append(", ");
         }
         return "Pedido #" + id +
                 " | Cliente: " + cliente.getNome() +

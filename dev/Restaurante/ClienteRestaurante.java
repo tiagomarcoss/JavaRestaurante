@@ -102,9 +102,13 @@ public class ClienteRestaurante extends Cliente {
         System.out.println("\nItens:");
         System.out.println("---------------------------------------------");
         double total = 0.0;
-        for (Prato prato : pedido.getPratos()) {
-            System.out.printf("- %-25s | R$ %.2f%n", prato.getNome(), prato.getPreco());
-            total += prato.getPreco();
+        for (ItemPedido item : pedido.getItens()) {
+            double subtotal = item.getSubtotal();
+            System.out.printf("- %-25s x%d | R$ %.2f%n",
+                    item.getPrato().getNome(),
+                    item.getQuantidade(),
+                    subtotal);
+            total += subtotal;
         }
         System.out.println("---------------------------------------------");
         System.out.printf("Total: R$ %.2f%n", total);

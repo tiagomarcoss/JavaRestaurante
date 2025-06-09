@@ -1,6 +1,7 @@
 package dev.Restaurante;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class GarcomRestaurante extends Garcom {
@@ -45,7 +46,12 @@ public class GarcomRestaurante extends Garcom {
             if (idxPrato == -1) {
                 adicionando = false;
             } else if (idxPrato >= 0 && idxPrato < pratos.size()) {
-                pedido.adicionarPrato(pratos.get(idxPrato));
+                Prato pratoSelecionado = pratos.get(idxPrato);
+                System.out.print("Quantidade: ");
+                int quantidade = sc.nextInt();
+                sc.nextLine();
+
+                pedido.adicionarItem(pratoSelecionado, quantidade);
             } else {
                 System.out.println("Índice inválido.");
             }
@@ -101,24 +107,29 @@ public class GarcomRestaurante extends Garcom {
                 System.out.print("Índice do prato para adicionar: ");
                 int idxAdicionar = sc.nextInt();
                 sc.nextLine();
+
                 if (idxAdicionar >= 0 && idxAdicionar < pratos.size()) {
-                    pedido.adicionarPrato(pratos.get(idxAdicionar));
+                    System.out.print("Quantidade: ");
+                    int qtdAdicionar = sc.nextInt();
+                    sc.nextLine();
+                    pedido.adicionarItem(pratos.get(idxAdicionar), qtdAdicionar);
                     System.out.println("Prato adicionado.");
                 } else {
                     System.out.println("Índice inválido.");
                 }
                 break;
             case 3:
-                ArrayList<Prato> pratosPedido = pedido.getPratos();
-                for (int i = 0; i < pratosPedido.size(); i++) {
-                    System.out.println(i + " - " + pratosPedido.get(i));
+                List<ItemPedido> itens = pedido.getItens();
+                for (int i = 0; i < itens.size(); i++) {
+                    ItemPedido item = itens.get(i);
+                    System.out.printf("%d - %s (x%d)%n", i, item.getPrato().getNome(), item.getQuantidade());
                 }
-                System.out.print("Índice do prato para remover: ");
+                System.out.print("Índice do item para remover: ");
                 int idxRemover = sc.nextInt();
                 sc.nextLine();
-                if (idxRemover >= 0 && idxRemover < pratosPedido.size()) {
-                    pedido.removerPrato(pratosPedido.get(idxRemover));
-                    System.out.println("Prato removido.");
+                if (idxRemover >= 0 && idxRemover < itens.size()) {
+                    pedido.removerItem(itens.get(idxRemover).getPrato());
+                    System.out.println("Item removido.");
                 } else {
                     System.out.println("Índice inválido.");
                 }
