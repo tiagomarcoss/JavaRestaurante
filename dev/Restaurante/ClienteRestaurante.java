@@ -1,5 +1,6 @@
 package dev.Restaurante;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteRestaurante extends Cliente {
@@ -68,25 +69,37 @@ public class ClienteRestaurante extends Cliente {
 
     @Override
     public void consultarStatusPedido() {
-        if (pedidos.isEmpty()) {
-            System.out.println("\nNão há pedidos registrados.");
+        List<Pedido> pedidosCliente = new ArrayList<>();
+        for (Pedido pedido : pedidos) {
+            if (pedido.getCliente().equals(this)) {
+                pedidosCliente.add(pedido);
+            }
+        }
+
+        if (pedidosCliente.isEmpty()) {
+            System.out.println("\nVocê ainda não fez nenhum pedido.");
             return;
         }
 
-        System.out.print("\nDigite o ID do pedido: ");
-        int idPedido = scanner.nextInt();
+        System.out.println("\n=== SEUS PEDIDOS ===");
+        for (Pedido pedido : pedidosCliente) {
+            System.out.println("Pedido ID: #" + pedido.getId() + " | Status: " + pedido.getStatus());
+        }
+
+        System.out.print("\nDigite o ID do pedido que deseja visualizar: ");
+        int idSelecionado = scanner.nextInt();
         scanner.nextLine();
 
-        Pedido pedidoEncontrado = null;
-        for (Pedido pedido : pedidos) {
-            if (pedido.getId() == idPedido) {
-                pedidoEncontrado = pedido;
+        Pedido pedidoSelecionado = null;
+        for (Pedido pedido : pedidosCliente) {
+            if (pedido.getId() == idSelecionado) {
+                pedidoSelecionado = pedido;
                 break;
             }
         }
 
-        if (pedidoEncontrado != null) {
-            exibirStatusPedido(pedidoEncontrado);
+        if (pedidoSelecionado != null) {
+            exibirStatusPedido(pedidoSelecionado);
         } else {
             System.out.println("Pedido não encontrado.");
         }
